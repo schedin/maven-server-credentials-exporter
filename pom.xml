@@ -60,16 +60,16 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-invoker-plugin</artifactId>
-        <version>3.6.0</version>
+        <version>3.7.0</version>
         <configuration>
           <projectsDirectory>${project.basedir}/src/it</projectsDirectory>
           <cloneProjectsTo>${project.build.directory}/its</cloneProjectsTo>
           <cloneAllFiles>true</cloneAllFiles>
           <failIfNoProjects>true</failIfNoProjects>
+          <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
           <pomIncludes>
             <pomInclude>*/pom.xml</pomInclude>
           </pomIncludes>
-          <settingsFile>${project.basedir}/src/it/export-basic/settings.xml</settingsFile>
           <filterProperties>
             <project.version>${project.version}</project.version>
           </filterProperties>
@@ -102,6 +102,7 @@
               <artifactId>${project.artifactId}</artifactId>
               <version>${project.version}</version>
               <packaging>${project.packaging}</packaging>
+              <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
             </configuration>
           </execution>
         </executions>
