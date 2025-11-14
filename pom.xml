@@ -55,6 +55,32 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-invoker-plugin</artifactId>
+        <version>3.6.0</version>
+        <configuration>
+          <projectsDirectory>${project.basedir}/src/it</projectsDirectory>
+          <cloneProjects>false</cloneProjects>
+          <pomIncludes>
+            <pomInclude>*/pom.xml</pomInclude>
+          </pomIncludes>
+          <filterPom>true</filterPom>
+          <filterProperties>
+            <project.version>${project.version}</project.version>
+          </filterProperties>
+        </configuration>
+        <executions>
+          <execution>
+            <id>run-integration-tests</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 </project>

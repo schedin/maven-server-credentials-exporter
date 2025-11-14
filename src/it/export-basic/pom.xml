@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>se.moshicon.it</groupId>
+  <artifactId>export-basic</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>export-basic</name>
+  <description>Integration test that verifies credentials are exported as system properties.</description>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>se.moshicon</groupId>
+        <artifactId>maven-server-credentials-exporter</artifactId>
+        <version>@project.version@</version>
+        <executions>
+          <execution>
+            <id>export-test-server-credentials</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>export</goal>
+            </goals>
+            <configuration>
+              <serverId>test-server</serverId>
+              <usernameProperty>export.username</usernameProperty>
+              <passwordProperty>export.password</passwordProperty>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>write-exported-credentials</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <mkdir dir="${project.build.directory}"/>
+                <echo file="${project.build.directory}/exported.txt">${export.username}:${export.password}</echo>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
